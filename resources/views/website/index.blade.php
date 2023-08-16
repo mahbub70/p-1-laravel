@@ -17,7 +17,7 @@
                             <div class="content relative h-full">
 
                                 <div class="image absolute w-full h-full top-0 left-0">
-                                    <img class="w-full h-full object-cover" src="./images/banner/banner-1.jpg" alt="Image">
+                                    <img class="w-full h-full object-cover" src="{{ asset('storage/images/banner/banner-1.jpg') }}" alt="Image">
                                 </div>
 
                                 <div class="text absolute top-1/2 translate-y-[-50%] left-4 max-w-[70%] sm:max-w-[50%]">
@@ -30,7 +30,7 @@
                             <div class="content relative h-full">
 
                                 <div class="image absolute w-full h-full top-0 left-0">
-                                    <img class="w-full h-full object-cover" src="./images/banner/banner-2.jpg" alt="Image">
+                                    <img class="w-full h-full object-cover" src="{{ asset('storage/images/banner/banner-2.jpg') }}" alt="Image">
                                 </div>
 
                                 <div class="text absolute top-1/2 translate-y-[-50%] left-4 max-w-[70%] sm:max-w-[50%]">
@@ -43,7 +43,7 @@
                             <div class="content relative h-full">
 
                                 <div class="image absolute w-full h-full top-0 left-0">
-                                    <img class="w-full h-full object-cover" src="./images/banner/banner-3.jpg" alt="Image">
+                                    <img class="w-full h-full object-cover" src="{{ asset('storage/images/banner/banner-3.jpg') }}" alt="Image">
                                 </div>
 
                                 <div class="text absolute top-1/2 translate-y-[-50%] left-4 max-w-[70%] sm:max-w-[50%]">
@@ -56,7 +56,7 @@
                             <div class="content relative h-full">
 
                                 <div class="image absolute w-full h-full top-0 left-0">
-                                    <img class="w-full h-full object-cover" src="./images/banner/banner-4.jpg" alt="Image">
+                                    <img class="w-full h-full object-cover" src="{{ asset('storage/images/banner/banner-4.jpg') }}" alt="Image">
                                 </div>
 
                                 <div class="text absolute top-1/2 translate-y-[-50%] left-4 max-w-[70%] sm:max-w-[50%]">
@@ -187,7 +187,7 @@
 @push('script')
 
     <!-- Swiper JS -->
-    <script>
+    <script type="module">
         const swiper = new Swiper('.swiper', {
             // Optional parameters
             direction: 'vertical',

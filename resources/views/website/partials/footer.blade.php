@@ -4,7 +4,7 @@
 
             <div class="logo w-full text-left">
                 <div class="image logo-image w-[40px] h-[40px] rounded-full overflow-hidden m-auto sm:m-[initial]">
-                    <a href="javascript:void(0)"><img src="./images/logo/logo.png" alt="Logo" class="w-full h-full object-cover"></a>
+                    <a href="javascript:void(0)"><img src="{{ asset('storage/images/logo/logo.png') }}" alt="Logo" class="w-full h-full object-cover"></a>
                 </div>
             </div>
 

@@ -1,9 +1,12 @@
-$(window).resize(function(event) {
+import {localGeo} from './geo';
+
+$(window).on("resize",function(event) {
     fixHeaderMenuPadding();
 });
 
 $(document).ready(function() {
     fixHeaderMenuPadding();
+    $('.basic-select2').select2();
 });
 
 function fixHeaderMenuPadding() {
@@ -22,7 +25,7 @@ function fixHeaderMenuPadding() {
     $(".header-nav").next().css("padding-top",`${nextElementPadding}px`);
 }
 
-$(".mobile-menu-btn").click(function() {
+$(document).on("click",".mobile-menu-btn",function() {
     $(".header-nav").toggleClass('active');
     let timeout = 0;
     $(".header-nav").hasClass("active") ? timeout = 0 : timeout = 400;
@@ -33,7 +36,6 @@ $(".mobile-menu-btn").click(function() {
 
 // Password Field Eye Button
 let passwordFieldEyeBtn = $(".password-eye-btn");
-// console.log(passwordFieldEyeBtn);
 $.each(passwordFieldEyeBtn,function(index,item) {
 
     if($(item).siblings("input").length > 0) {
@@ -49,3 +51,15 @@ $.each(passwordFieldEyeBtn,function(index,item) {
         });
     }
 });
+
+
+/**
+ * CSRF setup for laravel CSRF token
+ */
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+window.localGeo = localGeo;

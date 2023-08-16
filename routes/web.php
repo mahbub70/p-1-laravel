@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Website\HomeController;
+use App\Http\Controllers\Website\User\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('website.index');
+Route::name('website.')->group(function() {
+
+    Route::controller(HomeController::class)->group(function() {
+        Route::get('/','home')->name('home');
+    });
+
+    Route::prefix('user')->name('user.')->group(function() {
+
+        Route::controller(RegisterController::class)->group(function() {
+            Route::get('register','showRegistrationForm')->name('register');
+        });
+
+    });
+
+
 });
