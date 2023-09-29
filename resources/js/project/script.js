@@ -1,4 +1,5 @@
 import {localGeo} from './geo';
+import { exception } from './handleError';
 
 $(window).on("resize",function(event) {
     fixHeaderMenuPadding();
@@ -63,3 +64,4 @@ $.ajaxSetup({
 });
 
 window.localGeo = localGeo;
+window.globalException = exception;
