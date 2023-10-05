@@ -12,26 +12,27 @@
                 </div>
 
                 <div class="register-form">
-                    <form action="" method="POST">
+                    <form action="{{ route('website.user.register.request') }}" method="POST" class="x-http-r-send">
+                        @csrf
 
                         <div class="input-wrapper mb-2 w-full">
                             <label for="fullName" class="block text-xs mb-1 font-medium text-[#566C7B]">{{ __("Full Name") }} <span class="text-xs text-gray-500 font-light">{{ __("(Required)") }}</span></label>
-                            <input type="text" name="full_name" id="fullName" placeholder="Enter Full Name" class="w-full py-2 px-4 text-sm rounded border border-[#ddd]">
+                            <input type="text" name="full_name" id="fullName" placeholder="Enter Full Name" class="w-full py-2 px-4 text-sm rounded border border-[#ddd] outline-0">
                         </div>
 
                         <div class="input-wrapper mb-2 w-full">
                             <label for="userName" class="block text-xs mb-1 font-medium text-[#566C7B]">{{ __("Username") }}</label>
-                            <input type="text" name="username" id="userName" placeholder="Enter Username" class="w-full py-2 px-4 text-sm rounded border border-[#ddd]">
+                            <input type="text" name="username" id="userName" placeholder="Enter Username" class="w-full py-2 px-4 text-sm rounded border border-[#ddd] outline-0">
                         </div>
 
                         <div class="input-wrapper mb-2 w-full">
                             <label for="email" class="block text-xs mb-1 font-medium text-[#566C7B]">{{ __("Email") }}</label>
-                            <input type="email" name="email" id="email" placeholder="Enter Email Address" class="w-full py-2 px-4 text-sm rounded border border-[#ddd]">
+                            <input type="email" name="email" id="email" placeholder="Enter Email Address" class="w-full py-2 px-4 text-sm rounded border border-[#ddd] outline-0">
                         </div>
 
                         <div class="input-wrapper mb-2 w-full">
                             <label for="phone" class="block text-xs mb-1 font-medium text-[#566C7B]">{{ __("Phone") }} <span class="text-xs text-gray-500 font-light">{{ __("(Required)") }}</span></label>
-                            <input type="text" name="phone" id="phone" placeholder="Enter Phone Number" class="w-full py-2 px-4 text-sm rounded border border-[#ddd]">
+                            <input type="tel" name="phone" id="phone" placeholder="Enter Phone Number" class="iti-phone w-full py-2 px-4 text-sm rounded border border-[#ddd] outline-0" value="">
                         </div>
 
                         <div class="input-wrapper mb-2 w-full">
@@ -48,48 +49,35 @@
                             <label for="district" class="block text-sm mb-1 font-medium text-[#566C7B]">{{ __("District") }}<span class="text-xs text-gray-500 font-light">{{ __("(Required)") }}</span></label>
                             <select name="district" id="district" class="border border-[#ddd] py-2 pl-4 pr-8 rounded text-sm w-full basic-select2">
                                 <option value="" selected disabled>{{ __("Choose One") }}</option>
-                                {{-- @foreach ($geo_divisions as $item)
-                                    <option value="{{ $item['id'] }}">{{ $item['name'] }}</option>
-                                @endforeach --}}
                             </select>
                         </div>
 
                         <div class="input-wrapper mb-2 w-full">
-                            <label for="upozila" class="block text-sm mb-1 font-medium text-[#566C7B]">{{ __("Upozila") }} <span class="text-xs text-gray-500 font-light">{{ __("(Required)") }}</span></label>
-                            <select name="upozila" id="upozila" class="border border-[#ddd] py-2 pl-4 pr-8 rounded text-sm w-full basic-select2">
+                            <label for="upazila" class="block text-sm mb-1 font-medium text-[#566C7B]">{{ __("Upazila") }} <span class="text-xs text-gray-500 font-light">{{ __("(Required)") }}</span></label>
+                            <select name="upazila" id="upazila" class="border border-[#ddd] py-2 pl-4 pr-8 rounded text-sm w-full basic-select2">
                                 <option value="" selected disabled>{{ __("Choose One") }}</option>
-                                {{-- @foreach ($geo_divisions as $item)
-                                    <option value="{{ $item['id'] }}">{{ $item['name'] }}</option>
-                                @endforeach --}}
-                            </select>
-                        </div>
-
-                        <div class="input-wrapper mb-2 w-full">
-                            <label for="group" class="block text-sm mb-1 font-medium text-[#566C7B]">{{ __("Area") }} <span class="text-xs text-gray-500 font-light">{{ __("(Required)") }}</span></label>
-                            <select name="group" id="group" class="border border-[#ddd] py-2 pl-4 pr-8 rounded text-sm w-full">
-                                <option value="" selected disabled>{{ __("Choose One") }}</option>
-                                {{-- <option value="">Mirpur</option>
-                                <option value="">Uttora</option>
-                                <option value="">Mohammadpur</option>
-                                <option value="">Dhanmondi</option> --}}
                             </select>
                         </div>
 
                         <div class="input-wrapper mb-2 w-full">
                             <label for="b_group" class="block text-sm mb-1 font-medium text-[#566C7B]">{{ __("Blood Group") }} <span class="text-xs text-gray-500 font-light">{{ __("(Required)") }}</span></label>
-                            <select name="b_group" id="b_group" class="border border-[#ddd] py-2 pl-4 pr-8 rounded text-sm w-full">
+                            <select name="b_group" id="b_group" class="border border-[#ddd] py-2 pl-4 pr-8 rounded text-sm w-full basic-select2">
                                 <option value="" selected disabled>{{ __("Choose One") }}</option>
-                                {{-- <option value="">Top</option>
-                                <option value="">Left</option>
-                                <option value="">Bottom</option>
-                                <option value="">Right</option> --}}
+                                <option value="1">A+</option>
+                                <option value="2">A-</option>
+                                <option value="3">B+</option>
+                                <option value="4">B-</option>
+                                <option value="5">O+</option>
+                                <option value="6">O-</option>
+                                <option value="7">AB+</option>
+                                <option value="8">AB-</option>
                             </select>
                         </div>
 
                         <div class="input-wrapper mb-2 w-full">
                             <label for="password" class="block text-xs mb-1 font-medium text-[#566C7B]">{{ __("Password") }}</label>
                             <div class="input-field-wrap relative">
-                                <input type="password" name="password" id="password" placeholder="Enter Password" class="w-full py-2 px-4 text-sm rounded border border-[#ddd]">
+                                <input type="password" name="password" id="password" placeholder="Enter Password" class="w-full py-2 px-4 text-sm rounded border border-[#ddd] outline-0">
                                 <span class="icon opacity-75 absolute right-3 top-1/2 translate-y-[-50%] cursor-pointer password-eye-btn">
                                     <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                 </span>
@@ -99,7 +87,7 @@
                         <div class="input-wrapper mb-2 w-full">
                             <label for="confirmPassword" class="block text-xs mb-1 font-medium text-[#566C7B]">{{ __("Confirm Password") }}</label>
                             <div class="input-field-wrap relative">
-                                <input type="password" name="password_confirmation" id="confirmPassword" placeholder="Enter Confirm Password" class="w-full py-2 px-4 text-sm rounded border border-[#ddd]">
+                                <input type="password" name="password_confirmation" id="confirmPassword" placeholder="Enter Confirm Password" class="w-full py-2 px-4 text-sm rounded border border-[#ddd] outline-0">
                                 <span class="icon opacity-75 absolute right-3 top-1/2 translate-y-[-50%] cursor-pointer password-eye-btn">
                                     <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                 </span>
@@ -136,6 +124,25 @@
                 globalException.throw(error, event);
             });
         });
+
+        $("select[name=district]").change(function(event) {
+            let district_id = $(this).val();
+            localGeo.getUpazilasOnDistrict("{{ route('geo.getUpazilasOnDistrict') }}", district_id).then((response) => {
+
+                let upazilas = response.data;
+
+                let upazilasOptions = `<option value="" selected disabled>{{ __('Choose One') }}</option>`;
+                $.each(upazilas, function(index, upazila) {
+                    upazilasOptions += `<option value="${upazila.id}">${upazila.name}</option>`;
+                });
+                $("select[name=upazila]").html(upazilasOptions);
+
+            }).catch((error) => {
+                globalException.throw(error, event);
+            });
+        });
+
+        
 
     </script>
 

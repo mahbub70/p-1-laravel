@@ -63,5 +63,17 @@ $.ajaxSetup({
     }
 });
 
-window.localGeo = localGeo;
-window.globalException = exception;
+// Declare Global Variable
+window.localGeo = localGeo; // location related
+window.globalException = exception; // handle error exception
+
+/**
+ * Make request using XMLHttpRequest
+ */
+let xmlHttpRequestForms = $(".x-http-r-send");
+$.each(xmlHttpRequestForms, function(index, form) {
+    $(form).on("submit", function(event) {
+        event.preventDefault();
+        
+    });
+});

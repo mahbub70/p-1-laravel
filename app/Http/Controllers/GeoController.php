@@ -28,4 +28,25 @@ class GeoController extends Controller
             200
         );
     }
+
+    public function getUpazilasOnDistrict(Request $request) {
+
+        $validator = Validator::make($request->all(),[
+            'district'      => "required|integer",
+        ]);
+
+        if($validator->fails()) {
+            return JSON::error($validator->errors()->all(),[],400);
+        }
+
+        $validated = $validator->validate();
+
+        $district_id = $validated['district'];
+
+        return JSON::success(
+            ['Data fetch successfully!'],
+            get_geo_upazilas_on_district($district_id),
+            200
+        );
+    }
 }

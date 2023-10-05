@@ -13,8 +13,6 @@ class RegisterController extends Controller
     public function showRegistrationForm() {
         $title = "Register";
 
-        // dd(get_geo_divisions(),get_geo_districts(),get_geo_division_id_by_name("dhaka"), get_geo_districts_on_division('dhaka'), get_geo_upazilas(),get_geo_upazilas_on_district(2));
-
         return view('website.auth.register',[
             'title'         => $title,
             'geo_divisions' => get_geo_divisions(),
@@ -23,7 +21,21 @@ class RegisterController extends Controller
     }
 
 
+    /**
+     * Handle a registration request and store it in temp data.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function registerRequest(Request $request)
+    {
+        // dd($request->all());
+    }
 
+
+    public function register(Request $request)
+    {
+        dd($request->all());
+    }
 
 
 }

@@ -25,6 +25,7 @@ Route::name('website.')->group(function() {
 
         Route::controller(RegisterController::class)->group(function() {
             Route::get('register','showRegistrationForm')->name('register');
+            Route::post('register/request','registerRequest')->name('register.request');
         });
 
     });
