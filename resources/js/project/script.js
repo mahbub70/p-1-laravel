@@ -1,5 +1,7 @@
 import {localGeo} from './geo';
 import { exception } from './handleError';
+import { helpers } from './helpers';
+import { xHttpRequest } from './xHttpRequest';
 
 $(window).on("resize",function(event) {
     fixHeaderMenuPadding();
@@ -66,14 +68,93 @@ $.ajaxSetup({
 // Declare Global Variable
 window.localGeo = localGeo; // location related
 window.globalException = exception; // handle error exception
+window.xHttpRequest = xHttpRequest; // handle XMLHttpRequest
 
 /**
  * Make request using XMLHttpRequest
  */
 let xmlHttpRequestForms = $(".x-http-r-send");
 $.each(xmlHttpRequestForms, function(index, form) {
+
     $(form).on("submit", function(event) {
         event.preventDefault();
-        
+        $(form).find("button[type=submit]").addClass("pointer-events-none").prop("disabled","true");
+
+        xHttpRequest.send(form).then((response) => {
+
+            if(helpers.isJson(response.responseText)) {
+                response = JSON.parse(response.responseText);
+            }
+
+            let nextPageURL = response?.data?.next_page_url;
+            if(nextPageURL) return window.location.href = nextPageURL;
+
+        }).catch((response) => {
+            
+            exception.throw(response, form);
+
+            setTimeout(() => {
+                $(form).find("button[type=submit]").removeClass("pointer-events-none").removeAttr("disabled");
+            }, 1000);
+        });
     });
+
 });
+
+// Register OTP input START
+$('.otp-input').on('keydown paste', function(event){
+    if($(this).attr('type','number')) {
+        let value =  event.key || event.originalEvent.clipboardData.getData('text');
+        if(isNaN(value)) {
+            if(event.key != 'v' && event.key != 'Backspace') {
+               return false; 
+            }
+        }else {
+            let valueArray = value.split('');
+            if(event.type === 'keydown') {
+                $(this).val(event.key);
+                event.preventDefault();
+                $(this).next('.otp-input').focus();
+            }
+
+            if(event.type === 'paste') {
+                event.preventDefault();
+                let element = $(this).nextAll();
+                for(let i = 0; i < valueArray.length; i++) {
+                    if(i == 0) {
+                        $(this).val(valueArray[0]);
+                        if( i < valueArray.length - 1) {
+                            if(element[i] != undefined) {
+                                element[i].focus();
+                            }
+                        }
+                    }else {
+                        if(element[i-1] != undefined) {
+                            element[i-1].value = valueArray[i];
+                            if( i < valueArray.length - 1) {
+                                if(element[i] != undefined) {
+                                    element[i].focus();
+                                }
+                            }
+                        }
+                        
+                    }
+                    
+                }
+            }
+        }
+
+        if(event.key === 'Backspace') {
+            if($(this).val() == ''){
+                $(this).prev('.otp-input').focus();
+            }else {
+                $(this).val('');
+                event.preventDefault();
+            }
+        }
+
+    }else {
+        return false;
+    }
+});
+// Register OTP input END

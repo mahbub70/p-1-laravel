@@ -18,16 +18,15 @@ import intlTelInput from 'intl-tel-input';
 
 import '/node_modules/intl-tel-input/build/js/utils.js';
 
-// console.log(intlInputJS);
-
 const itiFields = $(".iti-phone");
 const itiErrorMap = ["Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
 $.each(itiFields, function(index, item) {
 
     let iti = intlTelInput(item, {
         onlyCountries: ["bd"],
-        autoInsertDialCode:true,
+        autoInsertDialCode:false,
         separateDialCode: true,
+        allowDropdown: false,
         hiddenInput: "full_" + $(item).attr("name"),
     });
 
@@ -35,9 +34,9 @@ $.each(itiFields, function(index, item) {
         // console.log(event);
         if(!iti.isValidNumber()) {
             let errorCode = iti.getValidationError();
-            console.log(itiErrorMap[errorCode]);
+            // console.log(itiErrorMap[errorCode]);
         }else {
-            console.log("Valid Number");
+            // console.log("Valid Number");
         }
     });
 

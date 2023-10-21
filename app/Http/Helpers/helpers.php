@@ -57,6 +57,21 @@ function get_geo_division_id_by_name($name) {
     return false;
 }
 
+function get_geo_division_info_by_id($id) {
+    $divisions = get_geo_divisions();
+    $division = array_filter($divisions, function($item) use ($id) {
+        if($item['id'] == $id) {
+            return $item;
+        }
+    });
+
+    if(count($division) > 0) {
+        return array_shift($division) ?? false;
+    }
+
+    return false;
+}
+
 function get_geo_upazilas() {
 
     if(cache()->driver('file')->has('geo_upazilas')) {
@@ -86,7 +101,6 @@ function get_geo_upazilas_on_district($district) {
     return $upazilas;
 }
 
-
 function get_geo_district_id_by_name($name) {
     $districts = get_geo_districts();
     $district = array_filter($districts, function($item) use ($name) {
@@ -100,4 +114,76 @@ function get_geo_district_id_by_name($name) {
     }
 
     return false;
+}
+
+function get_geo_district_info_by_id($id) {
+    $districts = get_geo_districts();
+    $district = array_filter($districts, function($item) use ($id) {
+        if($item['id'] == $id) {
+            return $item;
+        }
+    });
+
+    if(count($district) > 0) {
+        return array_shift($district) ?? false;
+    }
+
+    return false;
+}
+
+function get_geo_upazila_info_by_id($id) {
+    $upazilas = get_geo_upazilas();
+    $upazila = array_filter($upazilas, function($item) use ($id) {
+        if($item['id'] == $id) {
+            return $item;
+        }
+    });
+
+    if(count($upazila) > 0) {
+        return array_shift($upazila) ?? false;
+    }
+
+    return false;
+}
+
+function bloodGroups($id = null) {
+
+    $groups = [
+        1 => "A+",
+        2 => "A-",
+        3 => "B+",
+        4 => "B-",
+        5 => "O+",
+        6 => "O-",
+        7 => "AB+",
+        8 => "AB-"
+    ];
+
+    if($id && is_numeric($id)) {
+        return $groups[$id] ?? false;
+    }
+    return $groups;
+}
+
+function send_sms_to_phone($phone, $message) {
+
+    $to = $phone;
+    $token = "65880033361696703616e4dd08fafd8d20d8bbf94bdc06cdeb34";
+    $message = $message;
+    $url = "http://api.greenweb.com.bd/api.php?json";
+    $data= array(
+    'to'=>"$to",
+    'message'=>"$message",
+    'token'=>"$token"
+    ); 
+    $ch = curl_init(); 
+    curl_setopt($ch, CURLOPT_URL,$url);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_setopt($ch, CURLOPT_ENCODING, '');
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $smsresult = curl_exec($ch);
+
+    return $smsresult;
 }

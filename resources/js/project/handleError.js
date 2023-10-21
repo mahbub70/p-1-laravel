@@ -5,27 +5,35 @@ export const exception = {
     errorElementParentClass: "input-wrapper",
     errorItemClass: "error-item",
 
-    error: function(errors, placeElement = null) {
+    error: function(errors, placeElement = null, status_code) {
         if(placeElement == false || placeElement == null) {
             return false; // place element couldn't find  
         }
 
-        console.log(errors);
+        let errorItemClass = this.errorItemClass;
 
         let errorsMarkup = "";
+        let errorMessageIndex = 1;
         $.each(errors, function(index, message) {
-            errorsMarkup += `<p class="${this.errorItemClass}"> ${message} </p>`;
+
+            let commaMarkup = `<span>,</span>`;
+            if(errorMessageIndex == Object.keys(errors).length) {
+                commaMarkup = "";
+            }
+            errorsMarkup += `<p class="${errorItemClass}"> ${message}${commaMarkup}</p>`;
+
+            errorMessageIndex++;
         });
 
         $(placeElement).html(errorsMarkup);
-
-        // console.log(errors, placeElement);
     },
 
     throw: function(response, event = null) {
-        let errorMessages = exception.errorResponseFixer(response);
+
         let errorPlaceElement = exception.errorElementFixer(event);
-        return this.error(errorMessages, errorPlaceElement);
+        let errorMessages = exception.errorResponseFixer(response, errorPlaceElement);
+
+        return this.error(errorMessages, errorPlaceElement, response.status);
     },
 
     errorElementFixer: function(clue) { // clue can be an event, DOM Element
@@ -36,17 +44,24 @@ export const exception = {
         // IF Have Any Clue
         if(clue instanceof $.Event) { // if clue is an event
             let targetElement = clue.target;
-
             return this.getErrorElement(targetElement);
         }
+
+        clue = $(clue);
+        return this.generateErrorElement(clue, false);
     },
 
-    errorResponseFixer: function(response) { // get only error message from error response
+    errorResponseFixer: function(response, errorPlaceElement = null) { // get only error message from error response
         let responseText = response.responseText;
 
         if(helpers.isJson(responseText)) {
+            errorPlaceElement.removeClass("unknown");
             let errorMessages = JSON.parse(responseText);
             return errorMessages.errors;
+        }
+
+        if(errorPlaceElement) {
+            errorPlaceElement.addClass("unknown");
         }
 
         return [responseText];
@@ -72,10 +87,22 @@ export const exception = {
         return this.generateErrorElement(targetElement) // generate a new error element under error parent element
     },
 
-    generateErrorElement: function(targetElement) {
-        let errorParentElement = $(targetElement).parents("." + this.errorElementParentClass);
+    generateErrorElement: function(targetElement, parentClass = true) {
+
+        let errorParentElement = targetElement;
+        let extraClassForError = "generated";
+        if(parentClass == true) {
+            extraClassForError = "";
+            errorParentElement = $(targetElement).parents("." + this.errorElementParentClass);
+        }else {
+
+            if(errorParentElement.find("." + this.errorElementClass).length > 0) { // already has error element
+                return errorParentElement.find("." + this.errorElementClass);
+            }   
+        }
+
         if(errorParentElement.length > 0) {
-            errorParentElement.append(`<div class="${this.errorElementClass}"></div>`);
+            errorParentElement.append(`<div class="${this.errorElementClass} ${extraClassForError}"></div>`);
             return errorParentElement.find("." + this.errorElementClass);
         }
 

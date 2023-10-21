@@ -32,3 +32,34 @@ a{
 .iti {
     width: 100%;
 }
+
+.error-message.generated {
+    margin-top: 10px;
+}
+
+.error-message {
+    display: flex;
+    flex-flow: wrap;
+}
+
+.error-message .error-item {
+    font-size: 14px;
+    color: #FF0033;
+    margin-right: 5px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.error-message.unknown {
+    display: block;
+}

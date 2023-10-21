@@ -60,8 +60,8 @@
                         </div>
 
                         <div class="input-wrapper mb-2 w-full">
-                            <label for="b_group" class="block text-sm mb-1 font-medium text-[#566C7B]">{{ __("Blood Group") }} <span class="text-xs text-gray-500 font-light">{{ __("(Required)") }}</span></label>
-                            <select name="b_group" id="b_group" class="border border-[#ddd] py-2 pl-4 pr-8 rounded text-sm w-full basic-select2">
+                            <label for="blood_group" class="block text-sm mb-1 font-medium text-[#566C7B]">{{ __("Blood Group") }} <span class="text-xs text-gray-500 font-light">{{ __("(Required)") }}</span></label>
+                            <select name="blood_group" id="blood_group" class="border border-[#ddd] py-2 pl-4 pr-8 rounded text-sm w-full basic-select2">
                                 <option value="" selected disabled>{{ __("Choose One") }}</option>
                                 <option value="1">A+</option>
                                 <option value="2">A-</option>

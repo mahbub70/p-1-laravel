@@ -14,4 +14,9 @@ class Temp extends Model
     protected $casts = [
         'data'  => 'object',
     ];
+
+
+    public function scopeToken($query, $token) {
+        return $query->where('token', $token);
+    }
 }
