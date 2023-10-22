@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\User\ProfileController;
-use App\Http\Controllers\Website\HomeController;
-use App\Http\Controllers\Website\User\Auth\RegisterController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Website\HomeController;
+use App\Http\Controllers\Website\User\ProfileController;
+use App\Http\Controllers\Website\User\Auth\LoginController;
+use App\Http\Controllers\Website\User\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +44,15 @@ Route::name('website.')->group(function() {
             Route::get('/','index')->name('index');
         });
 
+        Route::controller(LoginController::class)->prefix("login")->name("login.")->group(function() {
+            Route::get("/",'showLoginForm')->name('view');
+            Route::post("login","login")->name('submit');
+        });
+
     });
 
-
 });
+
+// Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

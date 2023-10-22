@@ -27,7 +27,7 @@
                     @else
                         <div class="login-register-wrap text-white text-xs sm:text:sm flex flex-col min-[420px]:flex-row gap-2 items-center bg-[#E9EEEE] py-2 px-3 rounded">
                             <div class="login">
-                                <a href="./login.html" class="transitions duration-200 inline-block py-1 sm:py-1.5 px-4 bg-[#00BEB2] hover:bg-[#02897C] rounded fotn-medium">Login</a>
+                                <a href="{{ route('website.user.login.view') }}" class="transitions duration-200 inline-block py-1 sm:py-1.5 px-4 bg-[#00BEB2] hover:bg-[#02897C] rounded fotn-medium">{{ __("Login") }}</a>
                             </div>
                             <div class="register">
                                 <a href="{{ route('website.user.register') }}" class="transitions duration-200 inline-block py-1 sm:py-1.5 px-4 bg-[#FFAA71] hover:bg-[#FF9045] rounded fotn-medium">{{ __("Register") }}</a>
