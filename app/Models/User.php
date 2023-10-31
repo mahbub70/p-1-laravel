@@ -3,6 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\Gender;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -38,6 +41,20 @@ class User extends Authenticatable
      */
     protected $casts = [
         'password'  => 'hashed',
-        'address'   => 'object'
+        'address'   => 'object',
+        'gender'    => Gender::class,
     ];
+
+    /**
+     * The attributes declare model image column name.
+     *
+     * @var array<string, string>
+     */
+    public $imageColumn = 'image';
+
+
+    public function getImageLinkAttribute()
+    {
+        return get_image($this,'user-profile');
+    }
 }

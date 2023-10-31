@@ -12,7 +12,7 @@
 
                     <div class="profile-info flex items-center gap-3 w-full mb-4 md:0">
                         <div class="image-box max-w-[100px] max-h-[100px] sm:max-h-[150px] sm:max-w-[150px] md:max-h-[200px] md:max-w-[200px] overflow-hidden rounded-full">
-                            <img src="./images/user/profile/rokondev.jpg" class="w-full h-full object-cover" alt="Profile Image">
+                            <img src="{{ $user->image_link }}" class="w-full h-full object-cover" alt="Profile Image">
                         </div>
                         <div class="user-info">
                             <h2 class="full-name text-xl font-medium text-[#353535]">MD Mahbubur Rahman Rokon</h2>

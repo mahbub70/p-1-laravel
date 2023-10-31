@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Enums\Gender;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -13,13 +14,15 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('full_name');
-            $table->string('username')->unique()->nullable();
-            $table->string('email')->unique();
-            $table->string('full_phone')->unique();
-            $table->string('blood_group');
-            $table->text('address');
-            $table->string('password');
+            $table->string('full_name',250);
+            $table->string('username',250)->unique()->nullable();
+            $table->string('email',250)->unique();
+            $table->string('full_phone',250)->unique();
+            $table->string('blood_group',250);
+            $table->string('image',250)->nullable();
+            $table->text('address',1000);
+            $table->string('gender')->nullable();
+            $table->string('password',250);
             $table->rememberToken();
             $table->timestamps();
         });

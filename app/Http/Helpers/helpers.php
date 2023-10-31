@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Helpers\FilePaths;
+use Illuminate\Support\Facades\Config;
+
 function get_geo_divisions() {
 
     if(cache()->driver('file')->has('geo_divisions')) {
@@ -186,4 +189,15 @@ function send_sms_to_phone($phone, $message) {
     $smsresult = curl_exec($ch);
 
     return $smsresult;
+}
+
+function get_image($eloquent_record, string $path_key): string
+{
+    $column_name = "image";
+    if(property_exists($eloquent_record, "imageColumn")) $column_name = $eloquent_record->imageColumn;
+    $image = $eloquent_record->$column_name;
+
+    $file_paths = new FilePaths();
+    if($image) return $file_paths->get($path_key) . "/" . $image;
+    return $file_paths->defaultPlaceholder();
 }

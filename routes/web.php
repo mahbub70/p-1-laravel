@@ -40,7 +40,7 @@ Route::name('website.')->group(function() {
             });
         });
 
-        Route::controller(ProfileController::class)->prefix('profile')->name('profile.')->group(function() {
+        Route::controller(ProfileController::class)->middleware(['auth'])->prefix('profile')->name('profile.')->group(function() {
             Route::get('/','index')->name('index');
         });
 

@@ -13,7 +13,6 @@ class HomeController extends Controller
     public function home()
     {
         $title = "Home";
-
         return view('website.index',[
             'title' => $title,
         ]);
